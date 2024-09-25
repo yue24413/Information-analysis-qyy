@@ -1,6 +1,49 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+import type { FormInstance, FormRules } from 'element-plus'
+import { reactive, ref } from 'vue'
+
+const user = reactive({
+  department: '',
+  account: '',
+  password: '',
+  checkAccount: ''
+})
+
+function onSubmit() {
+  console.log('submit!')
+}
+const dialogVisible = ref(false)
+
+const ruleFormRef = ref<FormInstance>()
+
+const validatePass = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please input the password'))
+  } else {
+    if (user.checkAccount !== '') {
+      if (!ruleFormRef.value) return
+      ruleFormRef.value.validateField('checkAccount')
+    }
+    callback()
+  }
+}
+const validatePass2 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('Please input the password again'))
+  } else if (value !== user.password) {
+    callback(new Error("Two inputs don't match!"))
+  } else {
+    callback()
+  }
+}
+
+const rules = reactive<FormRules<typeof user>>({
+  password: [{ validator: validatePass, trigger: 'blur' }],
+  checkAccount: [{ validator: validatePass2, trigger: 'blur' }]
+})
 </script>
 
 <template>
@@ -14,7 +57,37 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
-    <RouterLink to="/login" id="login">login</RouterLink>
+
+    <el-button plain @click="dialogVisible = true" id="login">Login</el-button>
+
+    <el-dialog v-model="dialogVisible" title="Login" width="500" draggable>
+      <el-form
+        ref="ruleFormRef"
+        style="max-width: 600px"
+        :model="user"
+        status-icon
+        :rules="rules"
+        label-width="auto"
+        class="demo-user">
+        <el-form-item label="学号/工号" prop="checkAccount">
+          <el-input v-model="user.account" type="account" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="user.password" type="password" autocomplete="off" />
+        </el-form-item>
+
+        <el-form-item label="部门">
+          <el-select v-model="user.department" placeholder="please select your department">
+            <el-option label="department one" value="shanghai" />
+            <el-option label="department two" value="beijing" />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">Create</el-button>
+          <el-button>Cancel</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </header>
 
   <RouterView id="router" />
@@ -40,11 +113,12 @@ header {
 .wrapper {
   flex: 1;
 }
-a#login {
-  display: block;
-  font-size: 1.5rem;
-  padding: 2rem;
-  margin-right: 0;
+#login {
+  padding: 1.2rem 1rem;
+  margin-right: 5rem;
+}
+#login > span {
+  width: 120px;
 }
 .logo {
   display: block;
@@ -103,5 +177,9 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
+}
+
+.el-radio-group {
+  margin-right: 12px;
 }
 </style>
