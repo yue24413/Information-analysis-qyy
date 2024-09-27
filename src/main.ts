@@ -2,9 +2,9 @@ import { createAlertDialog } from '@/components/message/index'
 import { createApp } from 'vue' /*从Vue库中导入了createApp */
 import App from './App.vue' /* ./ 当前位置*/ /*导入了名为App.vue的组件文件，这是Vue应用的根组件 */
 //import.meta.env.DEV && (await import('@/mock/index'))
-import router from './router'
-//import('@/mock/index')
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import router from './router'
+import('@/mock/index')
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'

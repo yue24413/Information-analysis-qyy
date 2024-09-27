@@ -1,6 +1,6 @@
 export interface User {
   id?: string
-  level?: string
+  role?: string
   account?: string
   password?: string
   name?: string

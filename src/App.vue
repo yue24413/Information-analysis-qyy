@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import LoginVue from './components/login/LoginVue.vue'
+import ServiceVue from './components/service/ServiceVue.vue'
 </script>
 
 <template>
@@ -11,7 +12,7 @@ import LoginVue from './components/login/LoginVue.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/service">service</RouterLink>
+        <ServiceVue />
       </nav>
     </div>
     <LoginVue />
@@ -41,12 +42,11 @@ header {
 .wrapper {
   flex: 1;
 }
-
 .logo {
   display: block;
-  margin: 0 auto 2rem;
-  width: 40px;
-  height: 40px;
+  margin: 0 auto;
+  width: 10%;
+  height: 10%;
 }
 .router {
   background-color: #ee6f6f;
@@ -68,8 +68,13 @@ nav a.router-link-exact-active:hover {
 
 nav a {
   display: inline-block;
+  text-decoration: none;
+  color: #178237;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
+}
+nav a:hover {
+  color: #2e2f48;
 }
 
 nav a:first-of-type {
@@ -82,11 +87,12 @@ nav a:first-of-type {
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }
-
   .logo {
-    margin: 0 2rem 0 0;
+    display: block;
+    margin: 0 3%;
+    width: 40px;
+    height: 40px;
   }
-
   header .wrapper {
     display: flex;
     place-items: flex-start;

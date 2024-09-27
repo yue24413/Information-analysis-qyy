@@ -2,11 +2,27 @@
 import type { User } from '@/type'
 import { Lock as LockIcon, User as UserIcon } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import { reactive, ref } from 'vue'
-const user = ref<User>({ level: 'h3kw', account: '', password: '' }) //level: 'h3kw',默认不与任何身份对应
-function onSubmit() {
-  console.log('submit!')
+import { reactive, ref, watchEffect } from 'vue'
+import { loginService, refreshPage } from './index'
+
+const userR = ref({ account: '', password: '' })
+const buttonView = ref('')
+const tokenR = ref(sessionStorage.getItem('token'))
+
+watchEffect(() => {
+  buttonView.value = !tokenR.value ? '登录' : '退出'
+})
+
+const loginStatus = () => {
+  if (!tokenR.value) {
+    dialogVisible.value = true
+  } else {
+    sessionStorage.clear()
+    // buttonView.value = '登录'
+    refreshPage()
+  }
 }
+
 const dialogVisible = ref(false)
 const ruleFormRef = ref<FormInstance>()
 
@@ -14,7 +30,7 @@ const validateacc = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the account'))
   } else {
-    if (user.value.account !== '') {
+    if (userR.value.account !== '') {
       if (!ruleFormRef.value) return
       ruleFormRef.value.validateField('account')
     }
@@ -25,38 +41,50 @@ const validatePass = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password'))
   } else {
-    if (user.value.password !== '') {
+    if (userR.value.password !== '') {
       if (!ruleFormRef.value) return
       ruleFormRef.value.validateField('password')
     }
     callback()
   }
 }
-const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('Please input the password again'))
-  } else if (value !== user.value.password) {
-    callback(new Error("Two inputs don't match!"))
-  } else {
-    callback()
+const onLogin = async () => {
+  const user = {
+    account: userR.value.account,
+    password: userR.value.password
   }
+  await loginService(user)
+  dialogVisible.value = false
+  userR.value.account = ''
+  userR.value.password = ''
 }
+// const validatePass2 = (rule: any, value: any, callback: any) => {
+//   if (value === '') {
+//     callback(new Error('Please input the password again'))
+//   } else if (value !== userR.value.password) {
+//     callback(new Error("Two inputs don't match!"))
+//   } else {
+//     callback()
+//   }
+// }
 
-const rules = reactive<FormRules<typeof user>>({
+const rules = reactive<FormRules<User>>({
   account: [{ validator: validateacc, trigger: 'blur' }],
-  password: [{ validator: validatePass, trigger: 'blur' }],
-  password2: [{ validator: validatePass2, trigger: 'blur' }]
+  password: [{ validator: validatePass, trigger: 'blur' }]
+  // password2: [{ validator: validatePass2, trigger: 'blur' }]
 })
 </script>
 <template>
-  <el-button plain @click="dialogVisible = true" id="login">登录</el-button>
+  <el-button plain @click="loginStatus" id="login">
+    {{ buttonView }}
+  </el-button>
 
   <el-dialog v-model="dialogVisible" width="400" draggable>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
     <el-form
       ref="ruleFormRef"
       style="max-width: 600px"
-      :model="user"
+      :model="userR"
       status-icon
       :rules="rules"
       label-width="auto"
@@ -64,7 +92,7 @@ const rules = reactive<FormRules<typeof user>>({
       <el-form-item prop="account">
         <el-input
           :prefix-icon="UserIcon"
-          v-model="user.account"
+          v-model="userR.account"
           type="account"
           autocomplete="off"
           placeholder="请输入学号/工号:" />
@@ -72,7 +100,7 @@ const rules = reactive<FormRules<typeof user>>({
       <el-form-item prop="password">
         <el-input
           :prefix-icon="LockIcon"
-          v-model="user.password"
+          v-model="userR.password"
           type="password"
           autocomplete="off"
           placeholder="请输入密码：" />
@@ -95,26 +123,19 @@ const rules = reactive<FormRules<typeof user>>({
         </el-select>
       </el-form-item> -->
       <el-form-item>
-        <el-button class="submitButton" @click="onSubmit">登录</el-button>
+        <el-button class="submitButton" @click="onLogin">登录</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
 </template>
 
-<style>
-#login {
-  width: 80px;
-  padding: 1.2rem 1rem;
-  margin-right: 5rem;
-}
+<style scoped>
 .logo {
   display: block;
-  margin: 0 auto;
-  width: 70px;
-  height: 70px;
-  padding: 20px;
+  width: 30%;
+  height: 30%;
+  margin: 6% auto;
 }
-
 .el-link,
 el-input {
   margin-right: 20px;
@@ -122,5 +143,19 @@ el-input {
 }
 .submitButton {
   width: 100%;
+}
+@media (min-width: 1024px) {
+  #login {
+    width: 80px;
+    padding: 1.2rem 1rem;
+    margin-right: 5rem;
+  }
+}
+@media (max-width: 1024px) {
+  #login {
+    display: block;
+    width: 50%;
+    margin: 3% auto 1%;
+  }
 }
 </style>
