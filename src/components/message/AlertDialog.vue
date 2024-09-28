@@ -3,7 +3,6 @@ import { render } from 'vue'
 // 接收信息数据，以及当关闭模态框时的执行函数
 // 可选参数，关闭回调函数
 const props = defineProps<{ msg: string; close?: () => {} }>()
-//
 const close = () => {
   // 执行传入的关闭模态框时需执行的操作
   props.close && props.close()
@@ -12,15 +11,13 @@ const close = () => {
 }
 </script>
 <template>
-  <div>
-    <div class="modal" @click="close">
-      <div class="modal-dialog">
-        <div class="modal-header">
-          <h3>Exception</h3>
-        </div>
-        <div class="modal-content">
-          {{ props.msg }}
-        </div>
+  <div class="modal" @click="close">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Tips</h3>
+      </div>
+      <div class="modal-content">
+        {{ props.msg }}
       </div>
     </div>
   </div>

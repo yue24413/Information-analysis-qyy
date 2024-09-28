@@ -61,7 +61,6 @@ router.beforeEach((to, from) => {
     return true
   } else {
     createAlertDialog('无权限')
-    sessionStorage.setItem('redirectTo', to.fullPath) // 记录当前路由
     return { name: 'defult' }
   }
 })

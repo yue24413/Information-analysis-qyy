@@ -2,9 +2,9 @@
 import type { User } from '@/type'
 import { Lock as LockIcon, User as UserIcon } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 import { reactive, ref, watchEffect } from 'vue'
 import { loginService, refreshPage } from './index'
-
 const userR = ref({ account: '', password: '' })
 const buttonView = ref('')
 const tokenR = ref(sessionStorage.getItem('token'))
@@ -53,10 +53,19 @@ const onLogin = async () => {
     account: userR.value.account,
     password: userR.value.password
   }
-  await loginService(user)
   dialogVisible.value = false
+  await loginService(user)
   userR.value.account = ''
   userR.value.password = ''
+}
+const handleClose = (done: () => void) => {
+  ElMessageBox.confirm('是否取消登录吗？')
+    .then(() => {
+      done()
+    })
+    .catch(() => {
+      // catch error
+    })
 }
 // const validatePass2 = (rule: any, value: any, callback: any) => {
 //   if (value === '') {
@@ -79,7 +88,7 @@ const rules = reactive<FormRules<User>>({
     {{ buttonView }}
   </el-button>
 
-  <el-dialog v-model="dialogVisible" width="400" draggable>
+  <el-dialog v-model="dialogVisible" width="400" draggable :before-close="handleClose">
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
     <el-form
       ref="ruleFormRef"

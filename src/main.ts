@@ -1,4 +1,5 @@
 import { createAlertDialog } from '@/components/message/index'
+//import { createAlertDialogEle } from '@/components/message/indexEle'
 import { createApp } from 'vue' /*从Vue库中导入了createApp */
 import App from './App.vue' /* ./ 当前位置*/ /*导入了名为App.vue的组件文件，这是Vue应用的根组件 */
 //import.meta.env.DEV && (await import('@/mock/index'))
@@ -22,5 +23,8 @@ app.mount('#app') /**挂载之后，Vue应用就开始控制这个DOM元素， *
 app.config.errorHandler = (err) => {
   const message = err as string
   console.error(message)
+  // createAlertDialogEle(message)
+  // console.log('APPdialog1')
   createAlertDialog(message)
+  console.log('APPdialog2')
 }
