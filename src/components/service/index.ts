@@ -23,6 +23,6 @@ export const serviceView = async () => {
       path = '/service/defult'
       break
   }
-  console.log(path, role)
+  console.log(path)
   router.push(path)
 }

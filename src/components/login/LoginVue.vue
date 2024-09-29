@@ -59,7 +59,7 @@ const onLogin = async () => {
   userR.value.password = ''
 }
 const handleClose = (done: () => void) => {
-  ElMessageBox.confirm('是否取消登录吗？')
+  ElMessageBox.confirm('是否取消登录？')
     .then(() => {
       done()
     })

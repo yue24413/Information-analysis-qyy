@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
         path: 'defult',
         name: 'defult',
         component: () => import('@/views/service/ServiceDefult.vue'),
-        meta: { role: consty.DEFUlT }
+        meta: {}
       },
       {
         path: 'user',

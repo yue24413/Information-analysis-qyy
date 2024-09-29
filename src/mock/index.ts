@@ -38,11 +38,11 @@ server.post('login', (_schema, request) => {
 })
 
 server.get('service', (_schema, request) => {
-  const resultVO: ResultVO<{}> = { code: 200, data: { role: consty.DEFUlT } }
+  const resultVO: ResultVO<{}> = { code: 200, data: {} }
   const token = request.requestHeaders.token
   if (!token) {
     resultVO.code = 200
-    resultVO.data = { user: { id: 100, name: 'defult', role: 'cwq3' } }
+    resultVO.data = { user: { id: 100, name: 'defult' } }
     return resultVO
   } else if (
     token ==
