@@ -84,17 +84,12 @@ const rules = reactive<FormRules<User>>({
 })
 </script>
 <template>
-  <!-- <el-button plain @click="loginStatus" id="login">
-    {{ buttonView }}
-  </el-button> -->
-
   <!-- 判断是否有token -->
   <el-popconfirm v-if="tokenR" title="确定退出登录吗?" @confirm="loginStatus">
     <template #reference>
       <el-button type="danger" id="login">{{ buttonView }}</el-button>
     </template>
   </el-popconfirm>
-  <!-- 如果有token则直接显示按钮 -->
   <el-button v-else type="danger" @click="loginStatus" id="login">
     {{ buttonView }}
   </el-button>
