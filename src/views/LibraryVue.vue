@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { serviceView } from './index'
+import { LibraryView } from '../service/index'
 const getService = async () => {
-  await serviceView()
+  await LibraryView()
 }
 </script>
 <template>

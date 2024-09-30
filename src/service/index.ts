@@ -1,10 +1,10 @@
-import * as consty from '@/datasourse/Const'
 import { useGet } from '@/fetch'
 import router from '@/router'
+import * as consty from '@/service/Const'
 import type { User } from '@/type/index'
 import { userLoginStore } from '@/views/login/LoginStore'
-export const serviceView = async () => {
-  const resp = await useGet<{ user: User }>('service')
+const LibraryView = async () => {
+  const resp = await useGet<{ user: User }>('library')
   userLoginStore().userS.value = resp.data.value?.data.user ?? {}
   const role = sessionStorage.getItem('role')
   const userS = userLoginStore().userS
@@ -14,15 +14,16 @@ export const serviceView = async () => {
   let path = ''
   switch (role) {
     case consty.USER:
-      path = '/service/user'
+      path = '/library/user'
       break
     case consty.ADMIN:
-      path = '/service/admin'
+      path = '/library/admin'
       break
     default:
-      path = '/service/defult'
+      path = '/library/defult'
       break
   }
   console.log(path)
   router.push(path)
 }
+export { LibraryView }

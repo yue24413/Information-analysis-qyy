@@ -1,5 +1,5 @@
-import * as consty from '@/datasourse/Const'
-import type { ResultVO } from '@/type'
+import * as consty from '@/service/Const'
+import type { ResultVO } from '@/type/index'
 import { createServer, Response } from 'miragejs'
 const server = createServer({})
 server.namespace = 'api'
@@ -37,7 +37,7 @@ server.post('login', (_schema, request) => {
   return resultVO
 })
 
-server.get('service', (_schema, request) => {
+server.get('library', (_schema, request) => {
   const resultVO: ResultVO<{}> = { code: 200, data: {} }
   const token = request.requestHeaders.token
   if (!token) {

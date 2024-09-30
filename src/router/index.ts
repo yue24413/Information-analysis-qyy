@@ -1,5 +1,5 @@
 import { createAlertDialog } from '@/components/message'
-import * as consty from '@/datasourse/Const'
+import * as consty from '@/service/Const'
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/main/HomeView.vue'
 const routes: RouteRecordRaw[] = [
@@ -17,7 +17,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/main/AboutView.vue')
   },
   {
-    path: '/service',
+    path: '/library',
     //component: () => import('@/views/service/ServiceDefult.vue'),
     children: [
       {
