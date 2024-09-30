@@ -1,7 +1,7 @@
 import { createAlertDialog } from '@/components/message'
 import * as consty from '@/datasourse/Const'
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/main/HomeView.vue'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -14,7 +14,7 @@ const routes: RouteRecordRaw[] = [
     // route level code-splitting
     // this generates a separate chunk (About.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AboutView.vue')
+    component: () => import('../views/main/AboutView.vue')
   },
   {
     path: '/service',
@@ -23,19 +23,19 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'defult',
         name: 'defult',
-        component: () => import('@/views/service/ServiceDefult.vue'),
+        component: () => import('@/views/main/defult/LibraryDefult.vue'),
         meta: {}
       },
       {
         path: 'user',
-        component: () => import('@/views/service/ServiceUser.vue'),
+        component: () => import('@/views/main/user/LibraryUser.vue'),
         meta: {
           role: consty.USER
         }
       },
       {
         path: 'admin',
-        component: () => import('@/views/service/ServiceAdmin.vue'),
+        component: () => import('@/views/main/admin/LibraryAdmin.vue'),
         meta: {
           role: consty.ADMIN
         }

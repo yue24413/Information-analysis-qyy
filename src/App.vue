@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import LoginVue from './components/login/LoginVue.vue'
-import ServiceVue from './components/service/ServiceVue.vue'
+import LoginVue from './views/login/LoginVue.vue'
+// import ServiceVue from ''
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import ServiceVue from './components/service/ServiceVue.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <ServiceVue />
+        <!-- <ServiceVue /> -->
       </nav>
     </div>
     <LoginVue />

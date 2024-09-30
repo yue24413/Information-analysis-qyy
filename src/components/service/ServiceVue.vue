@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { serviceView } from './index'
 const getService = async () => {
-  console.log('getService')
   await serviceView()
 }
 </script>

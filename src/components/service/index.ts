@@ -1,8 +1,8 @@
-import { userLoginStore } from '@/components/login/LoginStore'
 import * as consty from '@/datasourse/Const'
 import { useGet } from '@/fetch'
 import router from '@/router'
 import type { User } from '@/type/index'
+import { userLoginStore } from '@/views/login/LoginStore'
 export const serviceView = async () => {
   const resp = await useGet<{ user: User }>('service')
   userLoginStore().userS.value = resp.data.value?.data.user ?? {}
