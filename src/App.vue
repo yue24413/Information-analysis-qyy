@@ -1,8 +1,4 @@
-<script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import LibraryVue from './views/LibraryVue.vue'
-import LoginVue from './views/login/LoginVue.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <header>
@@ -10,12 +6,12 @@ import LoginVue from './views/login/LoginVue.vue'
 
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <LibraryVue />
+        <!-- <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink> -->
+        <!-- <LibraryVue /> -->
       </nav>
     </div>
-    <LoginVue />
+    <!-- <LoginVue /> -->
   </header>
 
   <RouterView id="router" />

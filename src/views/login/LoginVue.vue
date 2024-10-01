@@ -1,10 +1,10 @@
 <script lang="ts" setup>
+import { CommonService } from '@/services/index'
 import type { User } from '@/type'
 import { Lock as LockIcon, User as UserIcon } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessageBox } from 'element-plus'
 import { reactive, ref, watchEffect } from 'vue'
-import { loginService, refreshPage } from './index'
 const userR = ref({ account: '', password: '' })
 const buttonView = ref('')
 const tokenR = ref(sessionStorage.getItem('token'))
@@ -19,7 +19,7 @@ const loginStatus = () => {
   } else {
     sessionStorage.clear()
     // buttonView.value = '登录'
-    refreshPage()
+    CommonService.refreshPage()
   }
 }
 
@@ -54,7 +54,7 @@ const onLogin = async () => {
     password: userR.value.password
   }
   dialogVisible.value = false
-  await loginService(user)
+  await CommonService.loginService(user)
   userR.value.account = ''
   userR.value.password = ''
 }

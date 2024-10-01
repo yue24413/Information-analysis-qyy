@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { LibraryView } from '../service/index'
-const getService = async () => {
+import { LibraryView } from '../services/index'
+const getLibrary = async () => {
   await LibraryView()
 }
 </script>
 <template>
-  <div class="getService">
-    <button class="getService" @click="getService">service</button>
+  <div class="getLibrary">
+    <button class="getLibrary" @click="getLibrary">library</button>
   </div>
 </template>
 <style scoped>
-.getService {
+.getLibrary {
   display: inline;
 }
 button {
