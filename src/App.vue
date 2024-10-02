@@ -1,4 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ADMIN, USER } from '@/services/Const'
+import { CommonService } from '@/services/index'
+import { useUserStore } from '@/store/UserStore'
+import type { Component } from 'vue'
+import { defineAsyncComponent } from 'vue'
+const userS = useUserStore().userS
+const role = CommonService.getRole()
+
+let nemuComponent: Component
+console.log('nemuComponent')
+if (role == USER) {
+  nemuComponent = defineAsyncComponent(() => import('@/views/main/header/user/IndexView.vue'))
+} else if (role == ADMIN) {
+  nemuComponent = defineAsyncComponent(() => import('@/views/main/header/admin/IndexView.vue'))
+}
+</script>
 
 <template>
   <!-- <header>
@@ -8,7 +24,6 @@
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <LibraryVue />
       </nav>
     </div>
     <LoginVue />
@@ -40,8 +55,8 @@ header {
 .logo {
   display: block;
   margin: 0 auto;
-  width: 10%;
-  height: 10%;
+  width: 50%;
+  height: 50%;
 }
 .router {
   background-color: #ee6f6f;
@@ -62,7 +77,8 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  display: inline-block;
+  display: inline;
+  font-size: 1rem;
   text-decoration: none;
   color: #178237;
   padding: 0 1rem;
@@ -76,7 +92,7 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
+/* @media (max-width: 1024px) {
   header {
     display: flex;
     place-items: center;
@@ -103,7 +119,7 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
-
+*/
 .el-radio-group {
   margin-right: 12px;
 }

@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 const menus = [
   {
-    name: 'library',
+    name: 'user',
     path: '/user'
   }
 ]
