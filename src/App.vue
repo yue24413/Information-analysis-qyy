@@ -1,19 +1,18 @@
 <script setup lang="ts"></script>
 
 <template>
-  <header>
+  <!-- <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
 
     <div class="wrapper">
       <nav>
-        <!-- <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink> -->
-        <!-- <LibraryVue /> -->
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+        <LibraryVue />
       </nav>
     </div>
-    <!-- <LoginVue /> -->
-  </header>
-
+    <LoginVue />
+  </header> -->
   <RouterView id="router" />
 </template>
 

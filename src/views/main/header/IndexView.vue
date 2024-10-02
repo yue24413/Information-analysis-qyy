@@ -10,6 +10,7 @@ const userS = useUserStore().userS
 const role = CommonService.getRole()
 
 let nemuComponent: Component
+console.log('nemuComponent')
 if (role == USER) {
   nemuComponent = defineAsyncComponent(() => import('@/views/main/header/user/IndexView.vue'))
 } else if (role == ADMIN) {
