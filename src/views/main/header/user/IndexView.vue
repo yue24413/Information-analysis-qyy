@@ -16,9 +16,9 @@ watch(route, () => {
 })
 </script>
 <template>
-  <el-menu :default-active="activeIndexR" mode="horizontal" router>
-    <template v-for="(menu, index) in menus" :key="index">
-      <el-menu-item :index="menu.path">{{ menu.name }}</el-menu-item>
-    </template>
-  </el-menu>
+  <!-- <el-menu :default-active="activeIndexR" mode="horizontal" router> -->
+  <template v-for="(menu, index) in menus" :key="index">
+    <el-menu-item :index="menu.path">{{ menu.name }}</el-menu-item>
+  </template>
+  <!-- </el-menu> -->
 </template>

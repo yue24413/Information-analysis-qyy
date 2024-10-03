@@ -10,7 +10,6 @@ const userS = useUserStore().userS
 const role = CommonService.getRole()
 
 let nemuComponent: Component
-console.log('nemuComponent')
 if (role == USER) {
   nemuComponent = defineAsyncComponent(() => import('@/views/main/header/user/IndexView.vue'))
 } else if (role == ADMIN) {
@@ -38,17 +37,18 @@ watch(route, () => {
     <el-col :span="2">
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
     </el-col>
-    <el-col :span="4">
+    <el-col :span="20">
       <el-menu :default-active="activeIndexR" mode="horizontal" router>
         <template v-for="(menu, index) in menus" :key="index">
           <el-menu-item :index="menu.path">{{ menu.name }}</el-menu-item>
         </template>
+        <component :is="nemuComponent" />
       </el-menu>
     </el-col>
     <!-- 基于权限加载上功能栏 -->
-    <el-col :span="16">
-      <component :is="nemuComponent" />
-    </el-col>
+    <!-- <el-col :span="16">
+     
+    </el-col> -->
     <el-col :span="2">
       <LoginVue />
     </el-col>
