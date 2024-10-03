@@ -1,18 +1,16 @@
 import { createAlertDialog } from '@/components/message/index'
+import { CommonService } from '@/services'
 import * as consty from '@/services/Const'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     component: () => import('@/views/login/LoginVue.vue')
   },
-
   {
     path: '/',
     component: () => import('@/views/main/IndexView.vue'),
-    meta: {
-      roles: [consty.USER, consty.ADMIN]
-    },
     children: [
       {
         path: 'admin',
@@ -31,23 +29,16 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/home',
         name: 'home',
-        // route level code-splitting
-        // this generates a separate chunk (About.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import('../views/main/defult/HomeView.vue')
       },
       {
         path: '/about',
         name: 'about',
-        // route level code-splitting
-        // this generates a separate chunk (About.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import('../views/main/defult/AboutView.vue')
       },
       {
-        //未匹配路由 (nomatch).处理没有明确匹配到其他子路由的情况
         name: 'nomatch',
-        path: '/:pathMatch(.*)*', // 全局匹配 /:pathMatch(.*)*
+        path: '/:pathMatch(.*)*',
         redirect: { name: 'home' }
       }
     ]
@@ -55,18 +46,26 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  // HTML5 Mode。createWebHistory()函数，生产环境下需要web容器完成转发
-  // createWebHashHistory()函数仍使用#符号，无需配置
-  // history: createWebHistory(import.meta.env.BASE_URL),
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: routes
 })
+
 router.beforeEach((to, from) => {
-  if (to.meta.role == sessionStorage.getItem('role') || !to.meta.role) {
+  const roles = to.meta.roles
+
+  // 如果路由没有定义权限，则直接放行
+  if (!roles) return true
+
+  // 获取当前用户的角色
+  const userRole = CommonService.getRole()
+
+  // 检查用户角色是否在路由定义的角色数组中
+  if (Array.isArray(roles) && roles.includes(userRole)) {
     return true
   } else {
     createAlertDialog('无权限')
-    return { name: 'defult' }
+    return { name: 'home' }
   }
 })
+
 export default router
