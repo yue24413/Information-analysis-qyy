@@ -38,6 +38,7 @@ watch(route, () => {
       <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
     </el-col>
     <el-col :span="20">
+      <!-- 水平导航菜单支持路由功能 router -->
       <el-menu :default-active="activeIndexR" mode="horizontal" router>
         <template v-for="(menu, index) in menus" :key="index">
           <el-menu-item :index="menu.path">{{ menu.name }}</el-menu-item>
@@ -45,10 +46,6 @@ watch(route, () => {
         <component :is="nemuComponent" />
       </el-menu>
     </el-col>
-    <!-- 基于权限加载上功能栏 -->
-    <!-- <el-col :span="16">
-     
-    </el-col> -->
     <el-col :span="2">
       <LoginVue />
     </el-col>
@@ -63,8 +60,5 @@ watch(route, () => {
   margin: 0 auto;
   width: 50%;
   height: 50%;
-}
-.router {
-  background-color: #ee6f6f;
 }
 </style>

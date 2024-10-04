@@ -6,6 +6,10 @@ const components: { name: string; component: Component }[] = [
   {
     name: '个人管理',
     component: defineAsyncComponent(() => import('./MyselfView.vue'))
+  },
+  {
+    name: '更多',
+    component: defineAsyncComponent(() => import('./LibraryUser.vue'))
   }
 ]
 const currentComponentR = ref()
@@ -15,8 +19,8 @@ const currentComponentC = computed(
 const typeC = computed(() => (name: string) => (name == currentComponentR.value ? 'danger' : ''))
 </script>
 <template>
-  <el-row class="my-row">
-    <el-col class="my-col">
+  <el-row>
+    <el-col>
       <el-tag
         v-for="(com, index) of components"
         :type="typeC(com.name)"
